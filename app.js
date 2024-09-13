@@ -12,7 +12,7 @@ form.addEventListener('submit', function(event) {
     const personalCare = parseFloat(document.getElementById('personalCare').value);
     const extras = parseFloat(document.getElementById('extras').value);
 
-    // Calculate annualized values
+    // Calculate monthly and annualized values
     const annualIncome = income * 12;
     const annualHousing = housing * 12;
     const annualTransportation = transportation * 12;
@@ -21,7 +21,15 @@ form.addEventListener('submit', function(event) {
     const annualPersonalCare = personalCare * 12;
     const annualExtras = extras * 12;
 
-    // Store results in localStorage for use on the new screen
+    // Store monthly and annualized values in localStorage
+    localStorage.setItem('monthlyIncome', income);
+    localStorage.setItem('monthlyHousing', housing);
+    localStorage.setItem('monthlyTransportation', transportation);
+    localStorage.setItem('monthlyFood', food);
+    localStorage.setItem('monthlyEntertainment', entertainment);
+    localStorage.setItem('monthlyPersonalCare', personalCare);
+    localStorage.setItem('monthlyExtras', extras);
+
     localStorage.setItem('annualIncome', annualIncome);
     localStorage.setItem('annualHousing', annualHousing);
     localStorage.setItem('annualTransportation', annualTransportation);
@@ -30,7 +38,7 @@ form.addEventListener('submit', function(event) {
     localStorage.setItem('annualPersonalCare', annualPersonalCare);
     localStorage.setItem('annualExtras', annualExtras);
 
-    // Redirect to the new screen
+    // Redirect to the annual report page
     window.location.href = 'annual-report.html';
 });
 
