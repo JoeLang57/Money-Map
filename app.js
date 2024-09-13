@@ -33,3 +33,4 @@ form.addEventListener('submit', function(event) {
     // Redirect to the new screen
     window.location.href = 'annual-report.html';
 });
+
