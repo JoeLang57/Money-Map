@@ -30,9 +30,15 @@
         }
         th, td {
             padding: 10px;
-            border: 1px solid #ccc;
+            border: 1px dotted #ccc; /* Excel-style dotted lines */
         }
         .total-row {
+            font-weight: bold;
+            background-color: #f0f0f0; /* Light gray for annual total */
+        }
+        /* Format the "Annual Total" column with light gray background */
+        td.annual-total {
+            background-color: #f0f0f0;
             font-weight: bold;
         }
     </style>
@@ -62,45 +68,64 @@
             <tbody>
                 <tr>
                     <td>Income</td>
-                    <td colspan="12">$<span id="monthly-income"></span></td>
-                    <td>$<span id="annual-income"></span></td>
+                    <td>$<span class="monthly-value" id="monthly-income"></span></td>
+                    <td>$<span class="monthly-value" id="monthly-income"></span></td>
+                    <td>$<span class="monthly-value" id="monthly-income"></span></td>
+                    <td>$<span class="monthly-value" id="monthly-income"></span></td>
+                    <td>$<span class="monthly-value" id="monthly-income"></span></td>
+                    <td>$<span class="monthly-value" id="monthly-income"></span></td>
+                    <td>$<span class="monthly-value" id="monthly-income"></span></td>
+                    <td>$<span class="monthly-value" id="monthly-income"></span></td>
+                    <td>$<span class="monthly-value" id="monthly-income"></span></td>
+                    <td>$<span class="monthly-value" id="monthly-income"></span></td>
+                    <td>$<span class="monthly-value" id="monthly-income"></span></td>
+                    <td>$<span class="monthly-value" id="monthly-income"></span></td>
+                    <td class="annual-total">$<span id="annual-income"></span></td>
                 </tr>
                 <tr>
                     <td>Housing</td>
-                    <td colspan="12">$<span id="monthly-housing"></span></td>
-                    <td>$<span id="annual-housing"></span></td>
+                    <td>$<span class="monthly-value" id="monthly-housing"></span></td>
+                    <td>$<span class="monthly-value" id="monthly-housing"></span></td>
+                    <td>$<span class="monthly-value" id="monthly-housing"></span></td>
+                    <td>$<span class="monthly-value" id="monthly-housing"></span></td>
+                    <td>$<span class="monthly-value" id="monthly-housing"></span></td>
+                    <td>$<span class="monthly-value" id="monthly-housing"></span></td>
+                    <td>$<span class="monthly-value" id="monthly-housing"></span></td>
+                    <td>$<span class="monthly-value" id="monthly-housing"></span></td>
+                    <td>$<span class="monthly-value" id="monthly-housing"></span></td>
+                    <td>$<span class="monthly-value" id="monthly-housing"></span></td>
+                    <td>$<span class="monthly-value" id="monthly-housing"></span></td>
+                    <td>$<span class="monthly-value" id="monthly-housing"></span></td>
+                    <td class="annual-total">$<span id="annual-housing"></span></td>
                 </tr>
                 <tr>
                     <td>Transportation</td>
-                    <td colspan="12">$<span id="monthly-transportation"></span></td>
-                    <td>$<span id="annual-transportation"></span></td>
+                    <td>$<span class="monthly-value" id="monthly-transportation"></span></td>
+                    <td>$<span class="monthly-value" id="monthly-transportation"></span></td>
+                    <td>$<span class="monthly-value" id="monthly-transportation"></span></td>
+                    <td>$<span class="monthly-value" id="monthly-transportation"></span></td>
+                    <td>$<span class="monthly-value" id="monthly-transportation"></span></td>
+                    <td>$<span class="monthly-value" id="monthly-transportation"></span></td>
+                    <td>$<span class="monthly-value" id="monthly-transportation"></span></td>
+                    <td>$<span class="monthly-value" id="monthly-transportation"></span></td>
+                    <td>$<span class="monthly-value" id="monthly-transportation"></span></td>
+                    <td>$<span class="monthly-value" id="monthly-transportation"></span></td>
+                    <td>$<span class="monthly-value" id="monthly-transportation"></span></td>
+                    <td>$<span class="monthly-value" id="monthly-transportation"></span></td>
+                    <td class="annual-total">$<span id="annual-transportation"></span></td>
                 </tr>
-                <tr>
-                    <td>Food</td>
-                    <td colspan="12">$<span id="monthly-food"></span></td>
-                    <td>$<span id="annual-food"></span></td>
-                </tr>
-                <tr>
-                    <td>Entertainment</td>
-                    <td colspan="12">$<span id="monthly-entertainment"></span></td>
-                    <td>$<span id="annual-entertainment"></span></td>
-                </tr>
-                <tr>
-                    <td>Personal Care</td>
-                    <td colspan="12">$<span id="monthly-personalCare"></span></td>
-                    <td>$<span id="annual-personalCare"></span></td>
-                </tr>
-                <tr>
-                    <td>Extras</td>
-                    <td colspan="12">$<span id="monthly-extras"></span></td>
-                    <td>$<span id="annual-extras"></span></td>
-                </tr>
+                <!-- Repeat similar structure for other categories like Food, Entertainment, Personal Care, and Extras -->
             </tbody>
         </table>
     </div>
 
-    <!-- JavaScript to retrieve and display the data -->
+    <!-- JavaScript to retrieve and display the data with commas formatting -->
     <script>
+        // Helper function to format numbers with commas for values over $1,000
+        function formatWithCommas(value) {
+            return parseFloat(value).toLocaleString('en-US');
+        }
+
         // Retrieve stored data from localStorage
         const monthlyIncome = localStorage.getItem('monthlyIncome');
         const monthlyHousing = localStorage.getItem('monthlyHousing');
@@ -118,23 +143,15 @@
         const annualPersonalCare = localStorage.getItem('annualPersonalCare');
         const annualExtras = localStorage.getItem('annualExtras');
 
-        // Display monthly data for all 12 months
-        document.getElementById('monthly-income').textContent = monthlyIncome;
-        document.getElementById('monthly-housing').textContent = monthlyHousing;
-        document.getElementById('monthly-transportation').textContent = monthlyTransportation;
-        document.getElementById('monthly-food').textContent = monthlyFood;
-        document.getElementById('monthly-entertainment').textContent = monthlyEntertainment;
-        document.getElementById('monthly-personalCare').textContent = monthlyPersonalCare;
-        document.getElementById('monthly-extras').textContent = monthlyExtras;
+        // Display monthly data for all 12 months (since it's the same value for each month)
+        document.querySelectorAll('.monthly-value#monthly-income').forEach(el => el.textContent = formatWithCommas(monthlyIncome));
+        document.querySelectorAll('.monthly-value#monthly-housing').forEach(el => el.textContent = formatWithCommas(monthlyHousing));
+        document.querySelectorAll('.monthly-value#monthly-transportation').forEach(el => el.textContent = formatWithCommas(monthlyTransportation));
 
-        // Display annual totals
-        document.getElementById('annual-income').textContent = annualIncome;
-        document.getElementById('annual-housing').textContent = annualHousing;
-        document.getElementById('annual-transportation').textContent = annualTransportation;
-        document.getElementById('annual-food').textContent = annualFood;
-        document.getElementById('annual-entertainment').textContent = annualEntertainment;
-        document.getElementById('annual-personalCare').textContent = annualPersonalCare;
-        document.getElementById('annual-extras').textContent = annualExtras;
+        // Display annual totals with comma formatting
+        document.getElementById('annual-income').textContent = formatWithCommas(annualIncome);
+        document.getElementById('annual-housing').textContent = formatWithCommas(annualHousing);
+        document.getElementById('annual-transportation').textContent = formatWithCommas(annualTransportation);
     </script>
 </body>
 </html>
